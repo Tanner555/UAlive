@@ -1,0 +1,6 @@
+﻿[#UsingStatements]
+
+[#RootScope] [#SpecialObject] [#ObjectType] [#ObjectName] [#ObjectSeperator] [#BaseType] [#ContractSeperator] [#Contracts]
+
+
+public static class MyClass 
