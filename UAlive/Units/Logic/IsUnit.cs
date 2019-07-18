@@ -14,9 +14,9 @@ namespace Lasm.UAlive
         [DoNotSerialize]
         public ValueOutput result;
 
-        protected override void Definition()
+        protected override void DefinePorts()
         {
-            base.Definition();
+            base.DefinePorts();
 
             value = ValueInput<object>("value");
             type = ValueInput("type", typeof(UnityEngine.Object));

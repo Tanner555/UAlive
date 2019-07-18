@@ -20,7 +20,6 @@ namespace Lasm.UAlive
         protected Accessor baseType => accessor["baseType"];
         protected Accessor interfaces => accessor["interfaces"];
         ObjectMacro macro => accessor.value as ObjectMacro;
-        Variables variablesList => (Variables)variables.value;
         public List<string> usingStatements = new List<string>();
         private int lastVariablesCount;
         private int lastDynamicVariablesCount;

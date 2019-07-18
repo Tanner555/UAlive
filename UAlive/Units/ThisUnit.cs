@@ -10,15 +10,18 @@ namespace Lasm.UAlive
         [DoNotSerialize][UnitPortLabelHidden][UnitPrimaryPort]
         public ValueOutput instance;
 
-        protected override void Definition()
+        protected override void DefinePorts()
         {
-            base.Definition();
+            base.DefinePorts();
 
             instance = ValueOutput<ILiveObject>("instance", new System.Func<Flow, ILiveObject>((flow) => 
             {
-                if (entry.targets != null)
-                {                    
-                    return (ILiveObject)flow.GetLocal("This");
+                if (entry != null)
+                {
+                    if (entry.targets != null)
+                    {
+                        return (ILiveObject)flow.GetLocal("This");
+                    }
                 }
 
                 return null;

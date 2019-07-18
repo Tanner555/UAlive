@@ -1,16 +1,15 @@
 ﻿using Ludiq;
 using Ludiq.Bolt;
-using Ludiq.OdinSerializer;
 
 namespace Lasm.UAlive
 {
     [UnitTitle("Label [Live]")]
-    [UnitCategory("Flow")]
+    [UnitCategory("Events")]
     public class LabelUnit : LiveEventUnit<LabelArgs>
     {
         public override string hookName => "Label";
 
-        [OdinSerialize][UnitHeaderInspectable(null)][Inspectable]
+        [Serialize][UnitHeaderInspectable(null)][Inspectable]
         public string label;
 
         [DoNotSerialize][UnitPortLabelHidden][UnitPrimaryPort]

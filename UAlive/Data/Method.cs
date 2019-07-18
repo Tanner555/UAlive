@@ -6,10 +6,10 @@ using Ludiq.OdinSerializer;
 using UnityEngine;
 using Lasm.Reflection;
 using System.Collections;
+using System.Linq;
 
 namespace Lasm.UAlive
 {
-    [Inspectable]
     [Serializable]
     public sealed class Method : Macro<FlowGraph>
     {
@@ -21,27 +21,43 @@ namespace Lasm.UAlive
         public AccessModifier scope = AccessModifier.Public;
         [Serialize]
         public MethodModifier modifier;
-        [Serialize]
+        [Serialize] 
         public EntryUnit entry;
         [Serialize]
         public ObjectMacro owner;
-
-        [OdinSerialize]
-        [Inspectable]
-        private Type _returns = typeof(Void);
-        public Type returns { get { return _returns; } set { _returns = value; if (entry != null) { var methodInput = entry as MethodInputUnit;  if (methodInput != null) owner.UpdateAllGraphs(); } } }
+        [Serialize]
+        public Type returns;
+        [Serialize]
+        private Type _returns = null;
 
         public void OnEnable()
         {
             if (entry != null)
             {
                 if (!graph.units.Contains(entry)) InitializeGraph(ref entry);
-            }
-            else
+            } 
+            else  
             {
                 InitializeGraph();
             }
-        } 
+        }
+
+        public bool ShouldChange()
+        {
+            if (graph != null)
+            {
+                if (returns != null)
+                {
+                    if (returns != _returns)
+                    {
+                        _returns = returns;
+                        return true;
+                    }
+                }
+            }   
+
+            return false;
+        }
 
         public FlowGraph InitializeGraph()
         {

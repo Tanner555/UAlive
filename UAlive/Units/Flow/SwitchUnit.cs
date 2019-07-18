@@ -4,6 +4,7 @@ using Ludiq;
 namespace Lasm.UAlive
 {
     [UnitCategory("Flow")]
+    [TypeIcon(typeof(Ludiq.Bolt.SwitchUnit<>))]
     public abstract class SwitchUnit : LiveUnit
     {
         [UnitPortLabelHidden]
@@ -12,10 +13,8 @@ namespace Lasm.UAlive
         [DoNotSerialize]
         public ControlOutput exit;
 
-        protected override void Definition()
+        protected override void DefinePorts()
         {
-            base.Definition();
-
             enter = ControlInput("enter", new System.Func<Flow, ControlOutput>((flow) =>
             {
                 OnCase(flow);

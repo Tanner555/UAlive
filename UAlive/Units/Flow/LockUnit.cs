@@ -16,9 +16,9 @@ namespace Lasm.UAlive
         [DoNotSerialize]
         public ValueInput lockObject;
 
-        protected override void Definition()
+        protected override void DefinePorts()
         {
-            base.Definition();
+            base.DefinePorts();
 
             enter = ControlInput("enter", new System.Func<Flow, ControlOutput>((flow) =>
             {

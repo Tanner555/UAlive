@@ -8,7 +8,7 @@ namespace Lasm.UAlive
     [UnitCategory("Flow")]
     public class SwitchOnEnumUnit : SwitchUnit
     {
-        [UnitHeaderInspectable]
+        [UnitHeaderInspectable][Serialize]
         [Inspectable][TypeFilter(Classes = false, Enums = true, Structs = false, Interfaces = false, Delegates = false, NonPublic = false, Primitives = false)]
         public System.Type @enum;
         [DoNotSerialize][UnitPrimaryPort(showLabel: false)]
@@ -17,9 +17,9 @@ namespace Lasm.UAlive
         [DoNotSerialize]
         public List<ControlOutput> cases = new List<ControlOutput>();
 
-        protected override void Definition()
+        protected override void DefinePorts()
         {
-            base.Definition();
+            base.DefinePorts();
 
             cases.Clear();
 

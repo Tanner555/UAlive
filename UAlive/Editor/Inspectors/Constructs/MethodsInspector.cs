@@ -41,7 +41,7 @@ namespace Lasm.UAlive
                 GUI.Box(new Rect(lastPosition.x, lastPosition.y, lastPosition.width + 6, 32), GUIContent.none);
                 if (GUI.Button(new Rect(lastPosition.x + 5, lastPosition.y + 5, lastPosition.width - 5 , 22), "+ Add Method"))
                 {
-                    ((List<Method>)accessor.value).Add(null);
+                    ((Methods)accessor.value).Add(null);
                 }
             }
 

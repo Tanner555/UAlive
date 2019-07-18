@@ -1,13 +1,12 @@
 ﻿using Ludiq;
 using System;
-using Ludiq.OdinSerializer;
 
 namespace Lasm.UAlive
 {
     [Inspectable][Serializable]
     public class BaseType
     {
-        [OdinSerialize]
+        [Serialize]
         [InspectorWide]
         [InspectorLabel(null)]
         [TypeFilter(Value = false, Sealed = false, Primitives = false, Generic = true, 

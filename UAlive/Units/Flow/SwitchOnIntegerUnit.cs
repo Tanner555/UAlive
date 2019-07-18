@@ -18,9 +18,9 @@ namespace Lasm.UAlive
         [DoNotSerialize]
         public List<ControlOutput> _cases = new List<ControlOutput>();
 
-        protected override void Definition()
+        protected override void DefinePorts()
         {
-            base.Definition();
+            base.DefinePorts();
 
             _cases.Clear();
 
@@ -28,7 +28,7 @@ namespace Lasm.UAlive
             
             for (int i = 0; i < cases.Count; i++)
             {
-                _cases.Add(ControlOutput(i.ToString()));
+                _cases.Add(ControlOutput(cases[i].ToString()));
             }
         }
 

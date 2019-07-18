@@ -20,7 +20,7 @@ namespace Lasm.UAlive
         [DoNotSerialize]
         public List<MethodInstance> targets = new List<MethodInstance>();
         
-        protected override void Definition()
+        protected override void DefinePorts()
         {
             trigger = ControlOutput("trigger").External();
         }

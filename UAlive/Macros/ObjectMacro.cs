@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using Ludiq;
+using Ludiq.Bolt;
 using System;
 using System.Linq;
 
 namespace Lasm.UAlive
 {
-    [CreateAssetMenu(fileName = "New Object", menuName = "UAlive/Object", order = 0)]
-    [Serializable]
+    [CreateAssetMenu(fileName = "New Object", menuName = "UAlive/Object", order = 0)][Extract(false)]
     public sealed class ObjectMacro : TypeMacro
     {
         [Inspectable]

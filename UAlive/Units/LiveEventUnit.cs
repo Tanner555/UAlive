@@ -16,9 +16,12 @@ namespace Lasm.UAlive
         {
             base.Definition();
 
-            if (entry == null)
+            if (graph != null)
             {
-                entry = entry ?? graph?.units?.OfType<EntryUnit>().ToListPooled()[0];
+                if (entry == null)
+                {
+                    entry = entry ?? graph?.units?.OfType<EntryUnit>().ToListPooled()[0];
+                }
             }
         }
     }

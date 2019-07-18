@@ -3,23 +3,39 @@ using Lasm.Reflection;
 using Ludiq;
 using System.Linq;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Lasm.UAlive
 {
     public abstract class LiveUnit : Unit
     {
+        [Serialize]
         public EntryUnit entry;
         private protected int cyclesComplete = 0;
         private protected int refreshCycle = 10;
         private protected int unitCount => graph.units.Count;
         private protected int lastUnitCount;
-
-        protected override void Definition()
+         
+        protected sealed override void Definition()
         {
-            if (entry == null || entry.graph != graph)
+            if (canDefine)
             {
-                entry = entry ?? graph?.units?.OfType<EntryUnit>().First();
+                if (graph != null)
+                {
+                    if (entry == null || entry.graph != null && entry.graph != graph)
+                    {
+                        entry = entry ?? graph?.units?.OfType<EntryUnit>().First();
+                    }
+                }
+
+                DefinePorts();
             }
+        }
+
+
+        protected virtual void DefinePorts()
+        {
+            
         }
 
         public static bool ControlDestinationIsLiveUnit(ControlOutput source)

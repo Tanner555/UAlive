@@ -1,6 +1,5 @@
 ﻿using Lasm.UAlive;
 using Ludiq;
-using Ludiq.Bolt;
 
 [assembly: RegisterCodeGenerator(typeof(MethodInputUnit), typeof(MethodInputUnitGenerator))]
 

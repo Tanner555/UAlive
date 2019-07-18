@@ -1,4 +1,5 @@
 ﻿using Ludiq.Bolt;
+using Ludiq;
 
 namespace Lasm.UAlive
 {
@@ -6,6 +7,5 @@ namespace Lasm.UAlive
     [UnitTitle("Serialized Property [Live]")]
     public class SerializedPropertyUnit : LiveUnit
     {
-
     }
 }

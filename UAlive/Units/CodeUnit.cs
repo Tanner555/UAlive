@@ -1,4 +1,5 @@
 ﻿using Ludiq.Bolt;
+using Ludiq;
 
 namespace Lasm.UAlive
 {
@@ -6,6 +7,7 @@ namespace Lasm.UAlive
     [UnitTitle("Code [Live]")]
     public class CodeUnit : LiveUnit
     {
-
+        [DoNotSerialize]
+        public ValueInput input;
     }
 }

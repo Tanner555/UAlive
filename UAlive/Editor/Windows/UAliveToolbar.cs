@@ -29,48 +29,54 @@ namespace Lasm.UAlive
         {
             if (BoltToolbar.instance != null)
             {
-                position = new Rect(BoltToolbar.instance.position.x + 120, BoltToolbar.instance.position.y + 4, 0, 24);
-                maxSize = new Vector2(120, 24);
-                minSize = new Vector2(120, 24);
-
-                isLive = GUI.Toggle(new Rect(0, 0, 40, 24), isLive, "Live", GUI.skin.button);
-
-                if (isLive != wasLive)
-                {
-                    var classes = Resources.FindObjectsOfTypeAll<ObjectMacro>().ToListPooled();
-
-                    if (isLive)
-                    {
-                        classes.Generate(true);
-                    }
-                    else
-                    {
-                        classes.Generate(false);
-                    }
-
-                    AssetDatabase.Refresh();
-                }
-
-                if (GUI.Button(new Rect(position.width + 40, 0, 80, 24), "Generate"))
-                {
-                    var classes = Resources.FindObjectsOfTypeAll<ObjectMacro>().ToListPooled();
-
-                    if (isLive)
-                    {
-                        classes.Generate(true);
-                    }
-                    else
-                    {
-                        classes.Generate(false);
-                    }
-
-                    AssetDatabase.Refresh();
-                }
-
-                wasLive = isLive;
-
-                Repaint();
+                position = new Rect(BoltToolbar.instance.position.x + 136, BoltToolbar.instance.position.y + 4, 0, 24);
             }
+            else
+            {
+                var windowRect = LudiqGUIUtility.mainEditorWindowPosition;
+               position = new Rect(windowRect.x + (windowRect.width / 2) + 60, windowRect.y + 4, 0, 24);
+            }
+
+            maxSize = new Vector2(120, 24);
+            minSize = new Vector2(120, 24);
+
+            isLive = GUI.Toggle(new Rect(0, 0, 40, 24), isLive, "Live", GUI.skin.button);
+
+            if (isLive != wasLive)
+            {
+                var classes = Resources.FindObjectsOfTypeAll<ObjectMacro>().ToListPooled();
+
+                if (isLive)
+                {
+                    classes.Generate(true);
+                }
+                else
+                {
+                    classes.Generate(false);
+                }
+
+                AssetDatabase.Refresh();
+            }
+
+            if (GUI.Button(new Rect(position.width + 40, 0, 80, 24), "Generate"))
+            {
+                var classes = Resources.FindObjectsOfTypeAll<ObjectMacro>().ToListPooled();
+
+                if (isLive)
+                {
+                    classes.Generate(true);
+                }
+                else
+                {
+                    classes.Generate(false);
+                }
+
+                AssetDatabase.Refresh();
+            }
+
+            wasLive = isLive;
+
+            Repaint();
         }
     }
 }

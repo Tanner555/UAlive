@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System;
 using System.Linq;
+using Ludiq;
 
 namespace Lasm.UAlive
 {
-    [Serializable]
+    [Serializable][Inspectable]
     public class Methods : List<Method>
     {
         public Method GetMethod(string name)

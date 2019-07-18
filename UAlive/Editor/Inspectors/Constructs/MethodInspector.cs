@@ -4,6 +4,7 @@ using Ludiq;
 using System.Collections.Generic;
 using Lasm.UAlive;
 using Lasm.UnityEditorUtilities;
+using System.Linq;
 
 [assembly: RegisterEditor(typeof(Method), typeof(MethodInspector))]
 
@@ -37,6 +38,16 @@ namespace Lasm.UAlive
             y = 0;
 
             Contents(position);
+
+            if (declaration.ShouldChange())
+            {
+                var returnUnits = declaration.graph.units.OfType<ReturnUnit>();
+
+                foreach (ReturnUnit returnUnit in returnUnits)
+                {
+                    returnUnit.returnType = declaration.returns;
+                }
+            }
 
             height = y;
         }

@@ -19,9 +19,9 @@ namespace Lasm.UAlive
         [DoNotSerialize]
         public List<ControlOutput> _cases = new List<ControlOutput>();
 
-        protected override void Definition()
+        protected override void DefinePorts()
         {
-            base.Definition();
+            base.DefinePorts();
 
             _cases.Clear();
 

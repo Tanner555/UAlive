@@ -1,5 +1,4 @@
 ﻿using Ludiq;
-using Ludiq.OdinSerializer;
 using System.Collections.Generic;
 using Ludiq.Bolt;
 using UnityEngine;
@@ -7,13 +6,10 @@ using System;
 
 namespace Lasm.UAlive
 {
-    [Serializable]
     public abstract class TypeMacro : LudiqScriptableObject, IMacro
     {
-        [OdinSerialize]
         public string @namespace = string.Empty;
 
-        [OdinSerialize]
         public RootAccessModifier scope = RootAccessModifier.Public;
 
         public FlowGraph activeGraph = null;

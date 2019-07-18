@@ -1,6 +1,5 @@
 ﻿using Ludiq.Bolt;
 using Ludiq;
-using Ludiq.OdinSerializer;
 
 namespace Lasm.UAlive
 {
@@ -8,7 +7,7 @@ namespace Lasm.UAlive
     [UnitCategory("Flow")]
     public class GotoUnit : LiveUnit
     {
-        [OdinSerialize]
+        [Serialize]
         [UnitHeaderInspectable(null)]
         [Inspectable]
         public string label;
@@ -16,14 +15,13 @@ namespace Lasm.UAlive
         [DoNotSerialize]
         [UnitPortLabelHidden]
         public ControlInput enter;
+
         [DoNotSerialize]
         [UnitPortLabelHidden]
         public ControlOutput exit;
 
-        protected override void Definition()
+        protected override void DefinePorts()
         {
-            base.Definition();
-
             exit = ControlOutput("exit");
             enter = ControlInput("enter", new System.Func<Flow, ControlOutput>((flow) =>
             {

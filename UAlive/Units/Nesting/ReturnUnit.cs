@@ -1,11 +1,16 @@
 ﻿using Ludiq;
 using Ludiq.Bolt;
 using System.Collections;
+using UnityEngine;
+using System.Linq;
+using System;
+using Lasm.Reflection;
 
 namespace Lasm.UAlive
 {
     [UnitTitle("Return")]
     [UnitCategory("Flow")]
+    [Serializable]
     public sealed class ReturnUnit : LiveUnit
     {
         [Serialize]
@@ -27,28 +32,25 @@ namespace Lasm.UAlive
         [UnitPortLabelHidden]
         public ValueInput returns;
 
-        protected override void Definition()
+        [Serialize] 
+        public System.Type returnType;
+
+
+        protected override void DefinePorts()
         {
-            base.Definition();
-
-            var _entry = entry as MethodInputUnit;
-
-            if (_entry != null)
+            if (returnType != null)
             {
-                if (_entry.declaration != null)
+                if (returnType.IsEnumerable())
                 {
-                    if (_entry.declaration.IsEnumerable())
-                    {
-                        enter = ControlInput("enter", OnEnterCoroutine);
-                        if (yieldable != null) { if (yieldable.@yield) exit = ControlOutput("exit"); }
-                    }
-                    else
-                    {
-                        enter = ControlInput("enter", OnEnter);
-                    }
-
-                    if (!_entry.declaration.IsVoid()) returns = ValueInput(_entry.declaration.returns, "returns");
+                    enter = ControlInput("enter", OnEnterCoroutine);
+                    if (yieldable != null) { if (yieldable.@yield) exit = ControlOutput("exit"); }
                 }
+                else
+                {
+                    enter = ControlInput("enter", OnEnter);
+                }
+
+                returns = ValueInput(returnType, "returns");
             }
         }
 
@@ -108,5 +110,6 @@ namespace Lasm.UAlive
 
             base.BeforeRemove();
         }
+
     }
 }

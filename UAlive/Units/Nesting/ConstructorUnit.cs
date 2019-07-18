@@ -5,7 +5,6 @@ using System.Collections.Generic;
 namespace Lasm.UAlive
 {
     [SpecialUnit]
-    [UnitCategory("Nesting")]
     [UnitTitle("Constructor [Live]")]
     [TypeIcon(typeof(Flow))]
     public class ConstructorUnit : EntryUnit
@@ -19,9 +18,9 @@ namespace Lasm.UAlive
         public Dictionary<string, System.Type> _parameters = new Dictionary<string, System.Type>();
         public event System.Action UpdateGraphs = new System.Action(() => { });
 
-        protected override void Definition()
+        protected override void DefinePorts()
         {
-            base.Definition();
+            base.DefinePorts();
 
             parameters.Clear();
 
@@ -36,7 +35,7 @@ namespace Lasm.UAlive
                 }
             }
 
-            UpdateGraphs();
+            if (graph != null) UpdateGraphs();
         }
     }
 }

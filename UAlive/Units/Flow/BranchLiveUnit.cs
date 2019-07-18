@@ -18,8 +18,10 @@ namespace Lasm.UAlive
         [DoNotSerialize]
         public ValueInput condition;
         
-        protected override void Definition()
+        protected override void DefinePorts()
         {
+            base.DefinePorts();
+
             @true = ControlOutput("true");
             @false = ControlOutput("false");
             next = ControlOutput("next");
