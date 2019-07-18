@@ -50,7 +50,7 @@ namespace Lasm.UAlive
                     enter = ControlInput("enter", OnEnter);
                 }
 
-                returns = ValueInput(returnType, "returns");
+                if (returnType != typeof(Void)) returns = ValueInput(returnType, "returns");
             }
         }
 
