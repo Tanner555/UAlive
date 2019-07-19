@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Lasm.UAlive
 {
-    [CreateAssetMenu(fileName = "New Object", menuName = "UAlive/Object", order = 0)][Extract(false)]
+    [CreateAssetMenu(fileName = "New Object", menuName = "Bolt/UAlive/Object", order = 0)][Extract(false)]
     public sealed class ObjectMacro : TypeMacro
     {
         [Inspectable]

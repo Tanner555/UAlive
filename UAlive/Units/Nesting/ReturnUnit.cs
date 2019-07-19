@@ -8,8 +8,8 @@ using Lasm.Reflection;
 
 namespace Lasm.UAlive
 {
-    [UnitTitle("Return")]
-    [UnitCategory("Flow")]
+    [UnitTitle("Return [Live]")]
+    [UnitCategory("Nesting")]
     [Serializable]
     public sealed class ReturnUnit : LiveUnit
     {
