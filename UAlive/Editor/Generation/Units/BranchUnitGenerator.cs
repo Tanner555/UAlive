@@ -17,11 +17,16 @@ namespace Lasm.UAlive
         {
             var output = string.Empty;
 
-            //output += CodeBuilder.Indent(indent) + "if (" + liveUnit.condition.connection.source.unit.CodeGenerator().Generate(0) + ") \n";
-            //output += CodeBuilder.Indent(indent) + "{\n";
-            //output += CodeBuilder.Indent(indent + 1) + "\n";
-            //output += CodeBuilder.Indent(indent) + "}";
-            
+            var logic = liveUnit.condition.connection != null ?
+                liveUnit.condition.connection.sourceExists ?
+                liveUnit.condition.connection.source.unit.CodeGenerator().Generate(0) : Patcher.ActualValue(typeof(bool), liveUnit.valueInputsData.GetValueOrDefault("condition").defaultValue)
+                : Patcher.ActualValue(typeof(bool), liveUnit.valueInputsData.GetValueOrDefault("condition").defaultValue);
+
+            output += CodeBuilder.Indent(indent) + "if (" + logic + ") \n";
+            output += CodeBuilder.Indent(indent) + "{\n";
+            output += CodeBuilder.Indent(indent + 1) + "\n";
+            output += CodeBuilder.Indent(indent) + "}";
+
             return output;
         }
     }

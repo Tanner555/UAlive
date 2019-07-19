@@ -16,10 +16,10 @@ namespace Lasm.UAlive
         {
             var output = string.Empty;
 
-            //output += CodeBuilder.Indent(indent) + "if (" +  ") \n";
-            //output += CodeBuilder.Indent(indent) + "{\n";
-            //output += CodeBuilder.Indent(indent + 1) + "\n";
-            //output += CodeBuilder.Indent(indent) + "}";
+            output += CodeBuilder.Indent(indent) + "if (" + ") \n";
+            output += CodeBuilder.Indent(indent) + "{\n";
+            output += CodeBuilder.Indent(indent + 1) + "\n";
+            output += CodeBuilder.Indent(indent) + "}";
 
             return output;
         }

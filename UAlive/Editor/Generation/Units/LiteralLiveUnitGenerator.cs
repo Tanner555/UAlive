@@ -17,7 +17,7 @@ namespace Lasm.UAlive
         {
             var output = string.Empty;
 
-            //output += Patcher.ActualValue(liveUnit.type, liveUnit.value);
+            output += Patcher.ActualValue(liveUnit.type, liveUnit.value);
 
             return output;
         }
