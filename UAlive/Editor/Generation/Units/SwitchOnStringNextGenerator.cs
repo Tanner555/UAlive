@@ -3,13 +3,13 @@ using Lasm.UAlive;
 using Lasm.UAlive.Generation;
 using Ludiq.Bolt;
 
-[assembly: RegisterCodeGenerator(typeof(SwitchOnStringUnit), typeof(SwitchOnStringUnitGenerator))]
+[assembly: RegisterCodeGenerator(typeof(SwitchOnStringNext), typeof(SwitchOnStringNextGenerator))]
 
 namespace Lasm.UAlive
 {
-    public class SwitchOnStringUnitGenerator : LiveUnitGenerator<SwitchOnStringUnit>
+    public class SwitchOnStringNextGenerator : LiveUnitGenerator<SwitchOnStringNext>
     {
-        public SwitchOnStringUnitGenerator(SwitchOnStringUnit unit) : base(unit)
+        public SwitchOnStringNextGenerator(SwitchOnStringNext unit) : base(unit)
         {
         }
 
@@ -49,7 +49,7 @@ namespace Lasm.UAlive
 
             output += CodeBuilder.Indent(indent) + "}\n";
 
-            if (liveUnit.exit.connection != null) output += "\n" + liveUnit.exit.connection.destination.unit.CodeGenerator().Generate(indent);
+            if (liveUnit.next.connection != null) output += "\n" + liveUnit.next.connection.destination.unit.CodeGenerator().Generate(indent);
 
             return output;
         }

@@ -1,17 +1,16 @@
 ﻿using Ludiq.Bolt;
 using Ludiq;
 using System.Collections.Generic;
-using Lasm.Reflection;
 
 namespace Lasm.UAlive
 {
-    [UnitTitle("Switch On Type [Live]")]
+    [UnitTitle("Switch On String [Live]")]
     [UnitCategory("Flow")]
-    public class SwitchOnTypeUnit : SwitchUnit
+    public class SwitchOnStringNext : SwitchNext
     {
         [Serialize]
         [Inspectable]
-        public List<System.Type> cases = new List<System.Type>();
+        public List<string> cases = new List<string>();
         [DoNotSerialize]
         [UnitPrimaryPort(showLabel: false)]
         public ValueInput value;
@@ -25,19 +24,19 @@ namespace Lasm.UAlive
 
             _cases.Clear();
 
-            value = ValueInput<System.Type>("value");
+            value = ValueInput<string>("value");
 
             for (int i = 0; i < cases.Count; i++)
             {
-                _cases.Add(ControlOutput(cases[i].Name));
+                _cases.Add(ControlOutput(cases[i]));
             }
         }
 
         public override void OnCase(Flow flow)
         {
             var _flow = Flow.New(flow.stack.ToReference(), true);
-            var type = flow.GetValue(value) as System.Type;
-            _flow.Invoke(controlOutputs[type.Name]);
+            var stringValue = (string)flow.GetValue(value);
+            _flow.Invoke(controlOutputs[stringValue]);
         }
     }
 }

@@ -113,6 +113,51 @@ namespace Lasm.UAlive.Generation
             return value.ToString();
         }
 
+        public static string Literal(System.Type type, object value)
+        {
+            var output = string.Empty;
+
+            if (type.IsPrimitive)
+            {
+                if (type == typeof(float))
+                {
+                    output += value.ToString() + "f";
+                    return output;
+                }
+
+                if (type == typeof(string))
+                {
+                    output += @"""" + value.ToString() + @"""";
+                    return output;
+                }
+
+                if (type == typeof(bool))
+                {
+                    output += value.ToString().ToLower();
+                    return output;
+                }
+
+                if (type == typeof(char))
+                {
+                    output += @"'" + value + @"'";
+                    return output;
+                }
+
+                output += value.ToString();
+                return output;
+            }
+
+            if (type.IsEnum)
+            {
+                output += "new " + type.Name + "()" + "{ " + value.ToString() + " }";
+                return output;
+            }
+
+            return "new " + type.Name + "(" + value.ToString() + ")";
+
+            return value.ToString();
+        }
+
         /// <summary>
         /// Splits a string where a lowercase and uppercase are neighbors.
         /// </summary>

@@ -6,7 +6,7 @@ namespace Lasm.UAlive
 {
     [UnitTitle("Switch On Enum [Live]")]
     [UnitCategory("Flow")]
-    public class SwitchOnEnumUnit : SwitchUnit
+    public class SwitchOnEnumNext : SwitchNext
     {
         [UnitHeaderInspectable][Serialize]
         [Inspectable][TypeFilter(Classes = false, Enums = true, Structs = false, Interfaces = false, Delegates = false, NonPublic = false, Primitives = false)]

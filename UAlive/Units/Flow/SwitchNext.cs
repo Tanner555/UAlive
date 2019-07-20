@@ -5,23 +5,23 @@ namespace Lasm.UAlive
 {
     [UnitCategory("Flow")]
     [TypeIcon(typeof(Ludiq.Bolt.SwitchUnit<>))]
-    public abstract class SwitchUnit : LiveUnit
+    public abstract class SwitchNext : LiveUnit
     {
         [UnitPortLabelHidden]
         [DoNotSerialize]
         public ControlInput enter;
         [DoNotSerialize]
-        public ControlOutput exit;
+        public ControlOutput next;
 
         protected override void DefinePorts()
         {
             enter = ControlInput("enter", new System.Func<Flow, ControlOutput>((flow) =>
             {
                 OnCase(flow);
-                return exit;
+                return next;
             }));
 
-            exit = ControlOutput("exit");
+            next = ControlOutput("next");
         }
 
         public abstract void OnCase(Flow flow);

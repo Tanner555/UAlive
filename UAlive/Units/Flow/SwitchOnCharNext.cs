@@ -4,13 +4,13 @@ using System.Collections.Generic;
 
 namespace Lasm.UAlive
 {
-    [UnitTitle("Switch On Integer [Live]")]
+    [UnitTitle("Switch On Character [Live]")]
     [UnitCategory("Flow")]
-    public class SwitchOnIntegerUnit : SwitchUnit
+    public class SwitchOnCharNext : SwitchNext
     {
         [Serialize]
         [Inspectable]
-        public List<int> cases = new List<int>();
+        public List<char> cases = new List<char>();
         [DoNotSerialize]
         [UnitPrimaryPort(showLabel: false)]
         public ValueInput value;
@@ -24,8 +24,8 @@ namespace Lasm.UAlive
 
             _cases.Clear();
 
-            value = ValueInput<int>("value");
-            
+            value = ValueInput<char>("value");
+
             for (int i = 0; i < cases.Count; i++)
             {
                 _cases.Add(ControlOutput(cases[i].ToString()));
@@ -35,8 +35,8 @@ namespace Lasm.UAlive
         public override void OnCase(Flow flow)
         {
             var _flow = Flow.New(flow.stack.ToReference(), true);
-            var enumValue = flow.GetValue(value);
-            _flow.Invoke(controlOutputs[enumValue.ToString()]);
+            var character = (char)flow.GetValue(value);
+            _flow.Invoke(controlOutputs[character.ToString()]);
         }
     }
 }
