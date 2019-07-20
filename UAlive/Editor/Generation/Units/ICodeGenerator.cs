@@ -1,4 +1,5 @@
 ﻿using Ludiq.Bolt;
+using System.Collections.Generic;
 
 namespace Lasm.UAlive
 {
@@ -6,5 +7,6 @@ namespace Lasm.UAlive
     {
         IUnit unit { get; set; }
         string Generate(int indent);
+        List<string> usingStatements { get; }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using Ludiq;
+﻿using System.Collections.Generic;
 using Ludiq.Bolt;
 
 namespace Lasm.UAlive
@@ -8,6 +7,8 @@ namespace Lasm.UAlive
         where TUnit : class, IUnit
     {
         public TUnit liveUnit => (TUnit)unit;
+
+        public override List<string> usingStatements => base.usingStatements;
 
         public LiveUnitGenerator(TUnit unit)
         {

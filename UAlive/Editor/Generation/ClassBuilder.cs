@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using Ludiq;
+using Ludiq.Bolt;
 using UnityEditor;
 
 namespace Lasm.UAlive.Generation
@@ -90,6 +91,20 @@ namespace Lasm.UAlive.Generation
             var @namespace = asset.@namespace;
             var name = asset.name;
             var methods = asset.methods;
+
+            foreach (Method method in methods)
+            {
+                var units = method.graph.units;
+                
+                foreach(IUnit unit in units)
+                {
+                    var statements = unit.CodeGenerator().usingStatements;
+                    foreach (string statement in statements)
+                    {
+                        AssemblyBuilder.UsingStatement(statement, usingStatements);
+                    }
+                }
+            }
 
             AssemblyBuilder.UsingStatements(variables, usingStatements);
             AssemblyBuilder.UsingStatement(inherits.type, usingStatements);

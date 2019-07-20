@@ -21,7 +21,6 @@ namespace Lasm.UAlive
             var b = liveUnit.b;
             var result = liveUnit.result;
             var @operator = liveUnit.@operator;
-
             var entry = (unit.graph.units.ToListPooled().Where((x) => { return (x as EntryUnit) != null; }).ToListPooled()[0] as EntryUnit);
             var methodInput = entry as MethodInputUnit;
 

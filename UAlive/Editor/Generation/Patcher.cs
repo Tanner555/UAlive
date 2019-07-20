@@ -63,7 +63,7 @@ namespace Lasm.UAlive.Generation
             return type.CSharpName(true);
         }
 
-        public static string ActualValue(System.Type type, object value)
+        public static string ActualValue(System.Type type, object value, bool isNew = false)
         {
             var output = string.Empty;
 
@@ -91,7 +91,26 @@ namespace Lasm.UAlive.Generation
                 return output;
             }
 
-            return "new " + type.Namespace + "." + type.Name + "(" + value.ToString() + ")";
+            if (type.IsEnum)
+            {
+                if (isNew)
+                {
+                    output += "new " + type.Name + "()" + "{ " + value.ToString() + " }";
+                }
+                else
+                {
+                    output += type.Name + "." + value.ToString();
+                }
+
+                return output;
+            }
+
+            if (isNew)
+            {
+                return "new " + type.Name + "(" + value.ToString() + ")";
+            }
+
+            return value.ToString();
         }
 
         /// <summary>
