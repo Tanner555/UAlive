@@ -153,7 +153,7 @@ namespace Lasm.UAlive.Generation
                 return output;
             }
 
-            return "new " + type.Name + "(" + value.ToString() + ")";
+            return "new " + type.Name + "(" + ")";
         }
 
         /// <summary>
