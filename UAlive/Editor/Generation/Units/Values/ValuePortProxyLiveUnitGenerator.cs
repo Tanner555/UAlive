@@ -21,9 +21,9 @@ namespace Lasm.UAlive
         public override string GenerateValueOutput(ValueOutput output, int indent)
         {
             var outputString = string.Empty;
-            var source = liveUnit.connections.ToListPooled()[0].source;
+            var source = liveUnit.connections.ToListPooled()[0].source as ValueOutput;
 
-            outputString += source.unit.CodeGenerator().GenerateValueOutput(output, indent);
+            outputString += source.unit.CodeGenerator().GenerateValueOutput(source, indent);
 
             return outputString;
         }

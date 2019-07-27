@@ -39,7 +39,7 @@ namespace Lasm.UAlive
             var outputs = liveUnit.outputs.ToListPooled();
             if (outputPort == liveUnit.output)
             {
-                return liveUnit.name;
+                return Patcher.LegalVariableName(liveUnit.name, false);
             }
 
             return string.Empty;

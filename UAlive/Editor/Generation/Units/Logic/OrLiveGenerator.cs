@@ -4,13 +4,13 @@ using Ludiq;
 using System.Linq;
 using Lasm.UAlive.Generation;
 
-[assembly: RegisterCodeGenerator(typeof(Or), typeof(OrLiveUnitGenerator))]
+[assembly: RegisterCodeGenerator(typeof(Or), typeof(OrLiveGenerator))]
 
 namespace Lasm.UAlive
 {
-    public class OrLiveUnitGenerator : LiveUnitGenerator<Or>
+    public class OrLiveGenerator : LiveUnitGenerator<Or>
     {
-        public OrLiveUnitGenerator(Or unit) : base(unit)
+        public OrLiveGenerator(Or unit) : base(unit)
         {
         }
 

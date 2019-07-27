@@ -4,13 +4,13 @@ using Ludiq;
 using System.Linq;
 using Lasm.UAlive.Generation;
 
-[assembly: RegisterCodeGenerator(typeof(And), typeof(AndLiveUnitGenerator))]
+[assembly: RegisterCodeGenerator(typeof(ExclusiveOr), typeof(ExclusiveOrLiveGenerator))]
 
 namespace Lasm.UAlive
 {
-    public class AndLiveUnitGenerator : LiveUnitGenerator<And>
+    public class ExclusiveOrLiveGenerator : LiveUnitGenerator<ExclusiveOr>
     {
-        public AndLiveUnitGenerator(And unit) : base(unit)
+        public ExclusiveOrLiveGenerator(ExclusiveOr unit) : base(unit)
         {
         }
 
@@ -27,6 +27,7 @@ namespace Lasm.UAlive
             {
                 var a = liveUnit.a;
                 var b = liveUnit.b;
+
                 var entry = (unit.graph.units.ToListPooled().Where((x) => { return (x as EntryUnit) != null; }).ToListPooled()[0] as EntryUnit);
                 var methodInput = entry as MethodInputUnit;
 
@@ -41,7 +42,7 @@ namespace Lasm.UAlive
 
                 outputString += aConnection != null ? aSource.unit.CodeGenerator().GenerateValueOutput(aSource, 0) : Patcher.ActualValue(a.type, Flow.FetchValue(a, a.type, reference));
 
-                outputString += CodeBuilder.Operator(BinaryOperator.And);
+                outputString += CodeBuilder.Operator(BinaryOperator.ExclusiveOr);
 
                 outputString += bConnection != null ? bSource.unit.CodeGenerator().GenerateValueOutput(bSource, 0) : Patcher.ActualValue(b.type, Flow.FetchValue(b, b.type, reference));
             }

@@ -26,7 +26,5 @@ namespace Lasm.UAlive
 
             return outputString;
         }
-
-        
     }
 }

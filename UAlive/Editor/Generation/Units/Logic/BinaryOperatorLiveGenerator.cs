@@ -4,13 +4,13 @@ using Ludiq;
 using System.Linq;
 using Lasm.UAlive.Generation;
 
-[assembly: RegisterCodeGenerator(typeof(BinaryOperatorUnit), typeof(BinaryOperatorLiveUnitGenerator))]
+[assembly: RegisterCodeGenerator(typeof(BinaryOperatorUnit), typeof(BinaryOperatorLiveGenerator))]
 
 namespace Lasm.UAlive
 {
-    public class BinaryOperatorLiveUnitGenerator : LiveUnitGenerator<BinaryOperatorUnit>
+    public class BinaryOperatorLiveGenerator : LiveUnitGenerator<BinaryOperatorUnit>
     {
-        public BinaryOperatorLiveUnitGenerator(BinaryOperatorUnit unit) : base(unit)
+        public BinaryOperatorLiveGenerator(BinaryOperatorUnit unit) : base(unit)
         {
         }
 

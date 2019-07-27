@@ -3,13 +3,13 @@ using Ludiq.Bolt;
 using Ludiq;
 using System.Linq;
 
-[assembly: RegisterCodeGenerator(typeof(Negate), typeof(NegateLiveUnitGenerator))]
+[assembly: RegisterCodeGenerator(typeof(Negate), typeof(NegateLiveGenerator))]
 
 namespace Lasm.UAlive
 {
-    public class NegateLiveUnitGenerator : LiveUnitGenerator<Negate>
+    public class NegateLiveGenerator : LiveUnitGenerator<Negate>
     {
-        public NegateLiveUnitGenerator(Negate unit) : base(unit)
+        public NegateLiveGenerator(Negate unit) : base(unit)
         {
         }
 

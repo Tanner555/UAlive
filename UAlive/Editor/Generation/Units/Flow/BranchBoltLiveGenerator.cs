@@ -3,13 +3,13 @@ using Ludiq;
 using Ludiq.Bolt;
 using Lasm.UAlive.Generation;
 
-[assembly: RegisterCodeGenerator(typeof(Branch), typeof(BranchUnitGenerator))]
+[assembly: RegisterCodeGenerator(typeof(Branch), typeof(BranchBoltLiveGenerator))]
 
 namespace Lasm.UAlive
 {
-    public class BranchUnitGenerator : LiveUnitGenerator<Branch>
+    public class BranchBoltLiveGenerator : LiveUnitGenerator<Branch>
     {
-        public BranchUnitGenerator(Branch unit) : base(unit)
+        public BranchBoltLiveGenerator(Branch unit) : base(unit)
         {
         }
 
