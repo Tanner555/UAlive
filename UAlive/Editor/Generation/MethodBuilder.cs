@@ -38,7 +38,7 @@ namespace Lasm.UAlive.Generation
                 {
                     output += MethodHeader(indent, method.scope, method.modifier, method.returns, method.name, ((MethodInputUnit)method.entry)._parameters) + "\n";
                     output += CodeBuilder.OpenBody(indent) + "\n";
-                    output += method.entry.CodeGenerator().Generate(indent + 1) + "\n";
+                    output += method.entry.CodeGenerator().GenerateControlInput(method.entry.trigger.connection?.destination, indent + 1) + "\n";
                     output += CodeBuilder.CloseBody(indent) + "\n";
                     output += "\n";
                 }

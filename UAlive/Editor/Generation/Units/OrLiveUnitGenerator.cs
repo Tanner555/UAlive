@@ -14,25 +14,39 @@ namespace Lasm.UAlive
         {
         }
 
-        public override string Generate(int indent)
+        public override string GenerateValueOutput(ValueOutput output, int indent)
         {
-            var output = string.Empty;
-            var a = liveUnit.a;
-            var b = liveUnit.b;
-            var entry = (unit.graph.units.ToListPooled().Where((x) => { return (x as EntryUnit) != null; }).ToListPooled()[0] as EntryUnit);
-            var methodInput = entry as MethodInputUnit;
+            var outputString = string.Empty;
 
-            GraphReference reference = null;
+            if (output == liveUnit.result)
+            {
+                var a = liveUnit.a;
+                var b = liveUnit.b;
+                var entry = (unit.graph.units.ToListPooled().Where((x) => { return (x as EntryUnit) != null; }).ToListPooled()[0] as EntryUnit);
+                var methodInput = entry as MethodInputUnit;
 
-            if (methodInput != null) reference = GraphReference.New(methodInput.macro, BoltX.UnitGuids(methodInput.graph as FlowGraph), false);
+                GraphReference reference = null;
 
-            output += a.connection != null ? a.connection.source.unit.CodeGenerator().Generate(0) : Patcher.ActualValue(a.type, Flow.FetchValue(a, a.type, reference));
+                if (methodInput != null) reference = GraphReference.New(methodInput.macro, BoltX.UnitGuids(methodInput.graph as FlowGraph), false);
 
-            output += CodeBuilder.Operator(BinaryOperator.Or);
+                var aConnection = a.connection;
+                var bConnection = b.connection;
+                var aSource = aConnection.source;
+                var bSource = bConnection.source;
 
-            output += b.connection != null ? b.connection.source.unit.CodeGenerator().Generate(0) : Patcher.ActualValue(b.type, Flow.FetchValue(b, b.type, reference));
+                outputString += aConnection != null ? aSource.unit.CodeGenerator().GenerateValueOutput(aSource, 0) : Patcher.ActualValue(a.type, Flow.FetchValue(a, a.type, reference));
 
-            return output;
+                outputString += CodeBuilder.Operator(BinaryOperator.Or);
+
+                outputString += bConnection != null ? bSource.unit.CodeGenerator().GenerateValueOutput(bSource, 0) : Patcher.ActualValue(b.type, Flow.FetchValue(b, b.type, reference));
+            }
+
+            return outputString;
+        }
+
+        public override string GenerateControlInput(ControlInput input, int indent)
+        {
+            return string.Empty;
         }
     }
 }

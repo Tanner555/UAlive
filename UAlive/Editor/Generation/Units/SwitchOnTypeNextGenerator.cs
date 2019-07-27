@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Lasm.UAlive;
 using Lasm.UAlive.Generation;
+using Ludiq.Bolt;
 
 [assembly: RegisterCodeGenerator(typeof(SwitchOnTypeNext), typeof(SwitchOnTypeNextGenerator))]
 
@@ -14,17 +15,19 @@ namespace Lasm.UAlive
 
         public override List<string> usingStatements => new List<string>() { "System" };
 
-        public override string Generate(int indent)
+        public override string GenerateControlInput(ControlInput input, int indent)
         {
             var output = string.Empty;
 
             var items = liveUnit.cases;
 
             string value = null;
+            var valueConnection = liveUnit.value.connection;
+            var valueSource = valueConnection.source;
 
             if (liveUnit.value.connection != null && liveUnit.value.connection.sourceExists)
             {
-                value = liveUnit.value.connection.source.unit.CodeGenerator().Generate(0);
+                value = valueSource.unit.CodeGenerator().GenerateValueOutput(valueSource, 0);
             }
 
             if (string.IsNullOrEmpty(value))
@@ -40,8 +43,11 @@ namespace Lasm.UAlive
 
             foreach (System.Type @case in items)
             {
+                var caseConnection = liveUnit._cases[count].connection;
+                var caseDestination = caseConnection.destination;
+
                 output += CodeBuilder.Indent(indent + 1) + "case " + @"""" + @case + @"""" + " :" + "\n";
-                output += liveUnit._cases[count].connection != null ? liveUnit._cases[count].connection.destination.unit.CodeGenerator().Generate(indent + 2) : string.Empty;
+                output += caseConnection != null ? caseDestination.unit.CodeGenerator().GenerateControlInput(caseDestination, indent + 2) : string.Empty;
                 output += "\n";
                 output += CodeBuilder.Indent(indent + 2) + "break;" + "\n" + (count == items.Count - 1 ? string.Empty : "\n");
                 count++;
@@ -49,9 +55,17 @@ namespace Lasm.UAlive
 
             output += CodeBuilder.Indent(indent) + "}\n";
 
-            if (liveUnit.next.connection != null) output += "\n" + liveUnit.next.connection.destination.unit.CodeGenerator().Generate(indent);
+            var nextConnection = liveUnit.next.connection;
+            var nextDestination = nextConnection.destination;
+
+            if (liveUnit.next.connection != null) output += "\n" + nextDestination.unit.CodeGenerator().GenerateControlInput(nextDestination, indent);
 
             return output;
+        }
+
+        public override string GenerateValueOutput(ValueOutput output, int indent)
+        {
+            return string.Empty;
         }
     }
 }

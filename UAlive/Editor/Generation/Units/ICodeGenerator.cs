@@ -6,7 +6,8 @@ namespace Lasm.UAlive
     public interface ICodeGenerator
     {
         IUnit unit { get; set; }
-        string Generate(int indent);
+        string GenerateControlInput(ControlInput input, int indent);
+        string GenerateValueOutput(ValueOutput output, int indent);
         List<string> usingStatements { get; }
     }
 }

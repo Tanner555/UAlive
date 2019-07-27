@@ -13,13 +13,24 @@ namespace Lasm.UAlive
         {
         }
 
-        public override string Generate(int indent)
+        public override string GenerateValueOutput(ValueOutput output, int indent)
         {
-            var output = string.Empty;
+            var outputString = string.Empty;
 
-            output += "!(" + liveUnit.input.connection.source.unit.CodeGenerator().Generate(indent) + ")";
+            if (output == liveUnit.output)
+            {
+                var inputConnection = liveUnit.input.connection;
+                var inputSource = inputConnection.source;
 
-            return output;
+                outputString += "!(" + inputSource.unit.CodeGenerator().GenerateValueOutput(inputSource, indent) + ")";
+            }
+
+            return outputString;
+        }
+
+        public override string GenerateControlInput(ControlInput input, int indent)
+        {
+            return string.Empty;
         }
     }
 }

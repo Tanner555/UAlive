@@ -12,21 +12,31 @@ namespace Lasm.UAlive
         {
         }
 
-        public override string Generate(int indent)
+        public override string GenerateControlInput(ControlInput input, int indent)
         {
             var output = string.Empty;
 
-            output += CodeBuilder.Indent(indent) + "if (" + ") \n";
-            output += CodeBuilder.Indent(indent) + "{\n";
-            output += CodeBuilder.Indent(indent + 1) + "\n";
-            output += CodeBuilder.Indent(indent) + "}";
+            if (input == liveUnit.enter)
+            {
+                output += CodeBuilder.Indent(indent) + "if (" + ") \n";
+                output += CodeBuilder.Indent(indent) + "{\n";
+                output += CodeBuilder.Indent(indent + 1) + "\n";
+                output += CodeBuilder.Indent(indent) + "}";
+            }
 
             return output;
         }
 
+        public override string GenerateValueOutput(ValueOutput output, int indent)
+        {
+            return string.Empty;
+        }
+
         private string Condition()
         {
-            return (bool)liveUnit.condition.connection.sourceExists ? liveUnit.condition.connection.source.unit.CodeGenerator().Generate(0) : string.Empty ;
+            var sourcePort = liveUnit.condition.connection.source;
+
+            return (bool)liveUnit.condition.connection.sourceExists ? sourcePort.unit.CodeGenerator().GenerateValueOutput(sourcePort, 0) : string.Empty ;
         }
     }
 }

@@ -154,8 +154,6 @@ namespace Lasm.UAlive.Generation
             }
 
             return "new " + type.Name + "(" + value.ToString() + ")";
-
-            return value.ToString();
         }
 
         /// <summary>
