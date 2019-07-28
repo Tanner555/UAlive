@@ -29,7 +29,7 @@ namespace Lasm.UAlive.Generation
         {
             var output = string.Empty;
             output += attributes + (string.IsNullOrEmpty(attributes) ? string.Empty : "\n");
-            output += CodeBuilder.Indent(indent) + CodeBuilder.Scope(scope) + " " + ((modifier == ClassModifier.None) ? string.Empty : Patcher.AddLowerUpperNeighboringSpaces(modifier.ToString()).ToLower()) + " " + Patcher.ObjectTypeName(ObjectKind.Class) + " " + typeName + CodeBuilder.TryAddBaseTypeSeperator(inherits, interfaces) + inherits + CodeBuilder.Interfaces(interfaces, inherits, (interfaces.Count > 0) ? true : false);
+            output += CodeBuilder.Indent(indent) + CodeBuilder.Scope(scope) + ((modifier == ClassModifier.None) ? string.Empty : " " + Patcher.AddLowerUpperNeighboringSpaces(modifier.ToString()).ToLower()) + " " + Patcher.ObjectTypeName(ObjectKind.Class) + " " + typeName + CodeBuilder.TryAddBaseTypeSeperator(inherits, interfaces) + inherits + CodeBuilder.Interfaces(interfaces, inherits, (interfaces.Count > 0) ? true : false);
             output += "\n";
             output += CodeBuilder.Indent(indent) + "{";
             output += "\n";

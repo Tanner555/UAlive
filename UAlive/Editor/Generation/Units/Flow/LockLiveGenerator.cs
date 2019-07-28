@@ -38,29 +38,4 @@ namespace Lasm.UAlive
             return string.Empty;
         }
     }
-
-    public class NullLiveGenerator : LiveUnitGenerator<Null>
-    {
-        public NullLiveGenerator(Null unit) : base(unit)
-        {
-
-        }
-
-        public override string GenerateControlInput(ControlInput input, int indent)
-        {
-            return string.Empty;
-        }
-
-        public override string GenerateValueOutput(ValueOutput output, int indent)
-        {
-            var outputString = string.Empty;
-
-            if (output == liveUnit.@null)
-            {
-                return "null";
-            }
-
-            return outputString;
-        }
-    }
 }

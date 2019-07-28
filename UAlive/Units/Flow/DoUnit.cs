@@ -8,12 +8,6 @@ namespace Lasm.UAlive
     [TypeIcon(typeof(While))]
     public class DoUnit : LiveUnit
     {
-        [UnitHeaderInspectable("While")]
-        [InspectorToggleLeft]
-        [Inspectable]
-        [Serialize]
-        public bool @while;
-
         [DoNotSerialize][UnitPortLabelHidden]
         public ValueInput condition;
         [DoNotSerialize]
@@ -22,16 +16,14 @@ namespace Lasm.UAlive
         [UnitPortLabelHidden]
         public ControlInput enter;
         [DoNotSerialize]
-        public ControlOutput exit;
+        public ControlOutput next;
         [DoNotSerialize]
         public ControlOutput @do;
-        [DoNotSerialize]
-        public ControlOutput @whileLoop;
 
         protected override void DefinePorts()
         {
-            exit = ControlOutput("exit");
             @do = ControlOutput("do");
+            next = ControlOutput("next");
             enter = ControlInput("enter", new System.Func<Flow, ControlOutput>((flow) => 
             {
                 do
@@ -40,20 +32,11 @@ namespace Lasm.UAlive
                     flow.Invoke(@do);
                 }
                 while (flow.GetValue<bool>(condition));
-                {
-                    if (@while)
-                    {
-                        var _flow = Flow.New(GraphReference.New((entry as MethodInputUnit)?.declaration, false));
-                        flow.Invoke(whileLoop);
-                    }
-                }
 
-                return exit;
+                return next;
             } ));
 
-            if (@while) whileLoop = ControlOutput("while");
-
-            condition = ValueInput<bool>("condition");
+            condition = ValueInput<bool>("condition", true);
         }
     }
 }

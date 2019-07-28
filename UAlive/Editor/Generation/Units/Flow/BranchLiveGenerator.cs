@@ -1,5 +1,6 @@
 ﻿using Lasm.UAlive;
 using Lasm.UAlive.Generation;
+using Ludiq;
 using Ludiq.Bolt;
 
 [assembly: RegisterCodeGenerator(typeof(BranchLiveUnit), typeof(BranchLiveGenerator))]
@@ -14,17 +15,35 @@ namespace Lasm.UAlive
 
         public override string GenerateControlInput(ControlInput input, int indent)
         {
-            var output = string.Empty;
+            var outputString = string.Empty;
 
-            if (input == liveUnit.enter)
+            var conditionConnection = liveUnit.condition.connection;
+            var conditionSource = conditionConnection.source;
+
+            var defaultValue = liveUnit.valueInputsData.GetValueOrDefault("condition").defaultValue;
+            var logic = conditionConnection != null ? liveUnit.condition.connection.source.unit.CodeGenerator().GenerateValueOutput(conditionSource, 0) : Patcher.ActualValue(typeof(bool), defaultValue);
+
+            var hasTrue = liveUnit.@true.connection != null;
+            var hasFalse = liveUnit.@false.connection != null;
+
+            var trueDestination = liveUnit.@true.connection?.destination;
+
+            outputString += CodeBuilder.Indent(indent) + "if (" + logic + ") \n";
+            outputString += CodeBuilder.OpenBody(indent) + "\n";
+            outputString += (hasTrue ? trueDestination.unit.CodeGenerator().GenerateControlInput(trueDestination, indent + 1) : string.Empty) + "\n";
+            outputString += CodeBuilder.CloseBody(indent);
+
+            if (hasFalse)
             {
-                output += CodeBuilder.Indent(indent) + "if (" + ") \n";
-                output += CodeBuilder.Indent(indent) + "{\n";
-                output += CodeBuilder.Indent(indent + 1) + "\n";
-                output += CodeBuilder.Indent(indent) + "}";
+                var falseDestination = liveUnit.@false.connection.destination;
+
+                outputString += "\n" + CodeBuilder.Indent(indent) + "else" + "\n";
+                outputString += CodeBuilder.OpenBody(indent) + "\n";
+                outputString += falseDestination.unit.CodeGenerator().GenerateControlInput(falseDestination, indent + 1) + "\n";
+                outputString += CodeBuilder.CloseBody(indent) + "\n";
             }
 
-            return output;
+            return outputString;
         }
 
         public override string GenerateValueOutput(ValueOutput output, int indent)

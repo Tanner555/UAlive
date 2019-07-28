@@ -18,7 +18,7 @@ namespace Lasm.UAlive
             var outputString = string.Empty;
 
             var conditionConnection = liveUnit.condition.connection;
-            var conditionSource = conditionConnection.source;
+            var conditionSource = conditionConnection?.source;
 
             var defaultValue = liveUnit.valueInputsData.GetValueOrDefault("condition").defaultValue;
             var logic = conditionConnection != null ? liveUnit.condition.connection.source.unit.CodeGenerator().GenerateValueOutput(conditionSource, 0) : Patcher.ActualValue(typeof(bool), defaultValue);
@@ -26,7 +26,7 @@ namespace Lasm.UAlive
             var hasTrue = liveUnit.ifTrue.connection != null;
             var hasFalse = liveUnit.ifFalse.connection != null;
 
-            var trueDestination = liveUnit.ifFalse.connection?.destination;
+            var trueDestination = liveUnit.ifTrue.connection?.destination;
 
             outputString += CodeBuilder.Indent(indent) + "if (" + logic + ") \n";
             outputString += CodeBuilder.OpenBody(indent) + "\n";

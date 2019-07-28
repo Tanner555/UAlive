@@ -40,7 +40,6 @@ namespace Lasm.UAlive.Generation
                     output += CodeBuilder.OpenBody(indent) + "\n";
                     output += method.entry.CodeGenerator().GenerateControlInput(method.entry.trigger.connection?.destination, indent + 1) + "\n";
                     output += CodeBuilder.CloseBody(indent) + "\n";
-                    output += "\n";
                 }
             }
 

@@ -172,9 +172,12 @@ namespace Lasm.UAlive.Generation
         public static string Variables(List<Variable> variables, int indent)
         {
             var output = string.Empty;
+            var count = 0;
 
             foreach (Variable variable in variables)
             {
+                count++;
+
                 var asReadOnly = string.Empty;
 
                 var type = variable.type.type;
@@ -183,7 +186,7 @@ namespace Lasm.UAlive.Generation
 
                 output += VariableScope(variable, indent);
 
-                output += "\n";
+                if (count < variables.Count) output += "\n";
             }
 
             return output;
